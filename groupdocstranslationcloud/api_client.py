@@ -77,10 +77,7 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
 
         self.pool = ThreadPool()
         self.rest_client = rest.RESTClientObject(configuration)
-        self.default_headers = {}
-
-        # setup OAuth2
-        self.default_headers['Authorization'] = configuration.access_token
+        self.default_headers = {'Authorization': configuration.access_token}
 
         if header_name is not None:
             self.default_headers[header_name] = header_value
@@ -222,12 +219,12 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
         :type post_params: list
         """
         for i, param in enumerate(post_params):
-            if isinstance(param, list) or isinstance(param, dict) or isinstance(param, tuple):
+            if isinstance(param, (list, dict, tuple)):
                 if any(param) and isinstance(param[0], str) and param[0] == "File":
                     continue
 
             param_content = param[1]
-            if isinstance(param_content, list) or isinstance(param_content, dict) or isinstance(param_content, tuple):
+            if isinstance(param_content, (list, dict, tuple)):
                 param_content_has_file = False
                 if isinstance(param_content, collections.Iterable):
                     for pItm in param_content:
@@ -272,12 +269,12 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
 
         if type(klass) == str:
             if klass.startswith('list['):
-                sub_kls = re.match('list\[(.*)\]', klass).group(1)
+                sub_kls = re.match('list\[(.*)\]', klass)[1]
                 return [self.__deserialize(sub_data, sub_kls)
                         for sub_data in data]
 
             if klass.startswith('dict('):
-                sub_kls = re.match('dict\(([^,]*), (.*)\)', klass).group(2)
+                sub_kls = re.match('dict\(([^,]*), (.*)\)', klass)[2]
                 return {k: self.__deserialize(v, sub_kls)
                         for k, v in six.iteritems(data)}
 
@@ -432,11 +429,7 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
         :param files: File parameters.
         :return: Form parameters with files.
         """
-        params = []
-
-        if post_params:
-            params = post_params
-
+        params = post_params if post_params else []
         if files:
             for k, v in six.iteritems(files):
                 if not v:
@@ -448,8 +441,7 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
                         filedata = f.read()
                         mimetype = (mimetypes.guess_type(filename)[0] or
                                     'multipart/form-data')
-                        params.append(
-                            tuple([k, tuple([filename, filedata, mimetype])]))
+                        params.append((k, (filename, filedata, mimetype)))
 
         return params
 
@@ -498,10 +490,10 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
         os.close(fd)
         os.remove(path)
 
-        content_disposition = response.getheader("Content-Disposition")
-        if content_disposition:
-            filename = re.search(r'filename=[\'"]?([^\'"\s]+)[\'"]?',
-                                 content_disposition).group(1)
+        if content_disposition := response.getheader("Content-Disposition"):
+            filename = re.search(
+                r'filename=[\'"]?([^\'"\s]+)[\'"]?', content_disposition
+            )[1]
             path = os.path.join(os.path.dirname(path), filename)
 
         with open(path, "wb") as f:
@@ -593,7 +585,6 @@ class ApiClient(six.with_metaclass(TypeWithDefault, object)):
         instance = klass(**kwargs)
 
         if hasattr(instance, 'get_real_child_model'):
-            klass_name = instance.get_real_child_model(data)
-            if klass_name:
+            if klass_name := instance.get_real_child_model(data):
                 instance = self.__deserialize(data, klass_name)
         return instance

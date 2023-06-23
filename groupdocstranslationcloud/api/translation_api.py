@@ -41,10 +41,7 @@ import six
 class TranslationApi(object):
 
     def __init__(self, config=None):
-        if config is None:
-            api_client = ApiClient()
-        else:
-            api_client = ApiClient(config)
+        api_client = ApiClient() if config is None else ApiClient(config)
         self.api_client = api_client
 
     ##########################################################
@@ -61,11 +58,7 @@ class TranslationApi(object):
         :return: TextResponse . If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__post_translate_text(body, **kwargs)
-        else:
-            (data) = self.__post_translate_text(body, **kwargs)
-            return data
+        return self.__post_translate_text(body, **kwargs)
 
     def __post_translate_text(self, body, **kwargs):
         # assert body is not None
@@ -78,14 +71,17 @@ class TranslationApi(object):
         :return: TextResponse . If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['async_req', '_return_http_data_only', '_preload_content', '_request_timeout']
-
         params = locals()
+        all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_convert_document_to_image" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_convert_document_to_image"
                 )
             params[key] = val
         del params['kwargs']
@@ -95,15 +91,13 @@ class TranslationApi(object):
 
         query_params = {}  # content query params
 
-        header_params = {}
         form_params = {}
         local_var_files = {}
         body_params = body
 
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -126,11 +120,7 @@ class TranslationApi(object):
         :return: DocumentResponse . If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__post_translate_document(body, **kwargs)
-        else:
-            (data) = self.__post_translate_document(body, **kwargs)
-            return data
+        return self.__post_translate_document(body, **kwargs)
 
     def __post_translate_document(self, body, **kwargs):
         assert body is not None
@@ -143,14 +133,17 @@ class TranslationApi(object):
         :return: DocumentResponse . If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['async_req', '_return_http_data_only', '_preload_content', '_request_timeout']
-
         params = locals()
+        all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_convert_document_to_image" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_convert_document_to_image"
                 )
             params[key] = val
         del params['kwargs']
@@ -158,15 +151,13 @@ class TranslationApi(object):
         collection_formats = {}
         path_params = {}  # uri params #
         query_params = {}  # content query params
-        header_params = {}
         form_params = {}
         local_var_files = {}
         body_params = body
 
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -189,11 +180,7 @@ class TranslationApi(object):
         :return: HugoResponse . If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__post_translate_hugo(body, **kwargs)
-        else:
-            (data) = self.__post_translate_hugo(body, **kwargs)
-            return data
+        return self.__post_translate_hugo(body, **kwargs)
 
     def __post_translate_hugo(self, body, **kwargs):
         assert body is not None
@@ -206,14 +193,17 @@ class TranslationApi(object):
         :return: HugoResponse . If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['async_req', '_return_http_data_only', '_preload_content', '_request_timeout']
-
         params = locals()
+        all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_convert_document_to_image" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_convert_document_to_image"
                 )
             params[key] = val
         del params['kwargs']
@@ -221,15 +211,13 @@ class TranslationApi(object):
         collection_formats = {}
         path_params = {}  # uri params #
         query_params = {}  # content query params
-        header_params = {}
         form_params = {}
         local_var_files = {}
         body_params = body
 
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -253,11 +241,7 @@ class TranslationApi(object):
         """
 
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__get_run_health_check(**kwargs)
-        else:
-            (data) = self.__get_run_health_check(**kwargs)
-            return data
+        return self.__get_run_health_check(**kwargs)
 
     def __get_run_health_check(self, **kwargs):
         """ Run health check to test correct work of service
@@ -268,14 +252,17 @@ class TranslationApi(object):
         :param bool async_req: Asynchronous request
         :return: DocumentResponse . If the method is called asynchronously, returns the request thread.
         """
-        all_params = ['async_req', '_return_http_data_only', '_preload_content', '_request_timeout']
-
         params = locals()
+        all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_convert_document_to_image" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_convert_document_to_image"
                 )
             params[key] = val
         del params['kwargs']
@@ -283,15 +270,13 @@ class TranslationApi(object):
         collection_formats = {}
         path_params = {}  # uri params #
         query_params = {}  # content query params
-        header_params = {}
         form_params = {}
         local_var_files = {}
         body_params = {}
 
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])

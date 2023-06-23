@@ -36,10 +36,7 @@ from groupdocstranslationcloud.api_client import ApiClient
 class StorageApi(object):
 
     def __init__(self, config=None):
-        if config is None:
-            api_client = ApiClient()
-        else:
-            api_client = ApiClient(config)
+        api_client = ApiClient() if config is None else ApiClient(config)
         self.api_client = api_client
 
     # **************************************************
@@ -57,11 +54,7 @@ class StorageApi(object):
         :return: DiscUsage. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__get_disc_usage_with_http_info(**kwargs)
-        else:
-            (data) = self.__get_disc_usage_with_http_info(**kwargs)
-            return data
+        return self.__get_disc_usage_with_http_info(**kwargs)
 
     def __get_disc_usage_with_http_info(self, **kwargs):
         """Get disc usage
@@ -74,18 +67,18 @@ class StorageApi(object):
         :return: DiscUsage. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_disc_usage" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_disc_usage"
                 )
             params[key] = val
         del params['kwargs']
@@ -98,16 +91,13 @@ class StorageApi(object):
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -132,11 +122,7 @@ class StorageApi(object):
         :return: FileVersions. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__get_file_versions_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__get_file_versions_with_http_info(path, **kwargs)
-            return data
+        return self.__get_file_versions_with_http_info(path, **kwargs)
 
     def __get_file_versions_with_http_info(self, path, **kwargs):
         """Get file versions
@@ -150,18 +136,19 @@ class StorageApi(object):
         :return: FileVersions. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_file_versions" % key
+                    f"Got an unexpected keyword argument '{key}' to method get_file_versions"
                 )
             params[key] = val
         del params['kwargs']
@@ -172,24 +159,18 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -215,11 +196,7 @@ class StorageApi(object):
         :return: ObjectExist. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__object_exists_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__object_exists_with_http_info(path, **kwargs)
-            return data
+        return self.__object_exists_with_http_info(path, **kwargs)
 
     def __object_exists_with_http_info(self, path, **kwargs):
         """Check if file or folder exists
@@ -234,18 +211,20 @@ class StorageApi(object):
         :return: ObjectExist. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name', 'version_id']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'version_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method object_exists" % key
+                    f"Got an unexpected keyword argument '{key}' to method object_exists"
                 )
             params[key] = val
         del params['kwargs']
@@ -256,26 +235,20 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
         if 'version_id' in params:
             query_params.append(('versionId', params['version_id']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -299,11 +272,7 @@ class StorageApi(object):
         :return: StorageExist. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__storage_exists_with_http_info(storage_name, **kwargs)
-        else:
-            (data) = self.__storage_exists_with_http_info(storage_name, **kwargs)
-            return data
+        return self.__storage_exists_with_http_info(storage_name, **kwargs)
 
     def __storage_exists_with_http_info(self, storage_name, **kwargs):
         """Check if storage exists
@@ -316,18 +285,18 @@ class StorageApi(object):
         :return: StorageExist. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method storage_exists" % key
+                    f"Got an unexpected keyword argument '{key}' to method storage_exists"
                 )
             params[key] = val
         del params['kwargs']
@@ -338,22 +307,16 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'storage_name' in params:
-            path_params['storageName'] = params['storage_name']
-
+        path_params = {'storageName': params['storage_name']}
         query_params = []
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -385,11 +348,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__copy_file_with_http_info(src_path, dest_path, **kwargs)
-        else:
-            (data) = self.__copy_file_with_http_info(src_path, dest_path, **kwargs)
-            return data
+        return self.__copy_file_with_http_info(src_path, dest_path, **kwargs)
 
     def __copy_file_with_http_info(self, src_path, dest_path, **kwargs):
         """Copy file
@@ -406,18 +365,22 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['src_path', 'dest_path', 'src_storage_name', 'dest_storage_name', 'version_id']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'src_path',
+            'dest_path',
+            'src_storage_name',
+            'dest_storage_name',
+            'version_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method copy_file" % key
+                    f"Got an unexpected keyword argument '{key}' to method copy_file"
                 )
             params[key] = val
         del params['kwargs']
@@ -436,9 +399,7 @@ class StorageApi(object):
         if 'src_path' in params:
             path_params['srcPath'] = params['src_path']
 
-        query_params = []
-        if 'dest_path' in params:
-            query_params.append(('destPath', params['dest_path']))
+        query_params = [('destPath', params['dest_path'])]
         if 'src_storage_name' in params:
             query_params.append(('srcStorageName', params['src_storage_name']))
         if 'dest_storage_name' in params:
@@ -446,16 +407,13 @@ class StorageApi(object):
         if 'version_id' in params:
             query_params.append(('versionId', params['version_id']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -481,11 +439,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__delete_file_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__delete_file_with_http_info(path, **kwargs)
-            return data
+        return self.__delete_file_with_http_info(path, **kwargs)
 
     def __delete_file_with_http_info(self, path, **kwargs):
         """Delete file
@@ -500,18 +454,20 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name', 'version_id']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'version_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_file" % key
+                    f"Got an unexpected keyword argument '{key}' to method delete_file"
                 )
             params[key] = val
         del params['kwargs']
@@ -522,26 +478,20 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
         if 'version_id' in params:
             query_params.append(('versionId', params['version_id']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -567,11 +517,7 @@ class StorageApi(object):
         :return: file. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__download_file_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__download_file_with_http_info(path, **kwargs)
-            return data
+        return self.__download_file_with_http_info(path, **kwargs)
 
     def __download_file_with_http_info(self, path, **kwargs):
         """Download file
@@ -586,18 +532,20 @@ class StorageApi(object):
         :return: file. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name', 'version_id']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'version_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method download_file" % key
+                    f"Got an unexpected keyword argument '{key}' to method download_file"
                 )
             params[key] = val
         del params['kwargs']
@@ -608,26 +556,20 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
         if 'version_id' in params:
             query_params.append(('versionId', params['version_id']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['multipart/form-data'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['multipart/form-data'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -655,11 +597,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__move_file_with_http_info(src_path, dest_path, **kwargs)
-        else:
-            (data) = self.__move_file_with_http_info(src_path, dest_path, **kwargs)
-            return data
+        return self.__move_file_with_http_info(src_path, dest_path, **kwargs)
 
     def __move_file_with_http_info(self, src_path, dest_path, **kwargs):
         """Move file
@@ -676,18 +614,22 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['src_path', 'dest_path', 'src_storage_name', 'dest_storage_name', 'version_id']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'src_path',
+            'dest_path',
+            'src_storage_name',
+            'dest_storage_name',
+            'version_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method move_file" % key
+                    f"Got an unexpected keyword argument '{key}' to method move_file"
                 )
             params[key] = val
         del params['kwargs']
@@ -706,9 +648,7 @@ class StorageApi(object):
         if 'src_path' in params:
             path_params['srcPath'] = params['src_path']
 
-        query_params = []
-        if 'dest_path' in params:
-            query_params.append(('destPath', params['dest_path']))
+        query_params = [('destPath', params['dest_path'])]
         if 'src_storage_name' in params:
             query_params.append(('srcStorageName', params['src_storage_name']))
         if 'dest_storage_name' in params:
@@ -716,16 +656,13 @@ class StorageApi(object):
         if 'version_id' in params:
             query_params.append(('versionId', params['version_id']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -751,11 +688,7 @@ class StorageApi(object):
         :return: FilesUploadResult. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__upload_file_with_http_info(path, file, **kwargs)
-        else:
-            (data) = self.__upload_file_with_http_info(path, file, **kwargs)
-            return data
+        return self.__upload_file_with_http_info(path, file, **kwargs)
 
     def __upload_file_with_http_info(self, path, file, **kwargs):
         """Upload file
@@ -770,18 +703,20 @@ class StorageApi(object):
         :return: FilesUploadResult. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'file', 'storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'file',
+            'storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method upload_file" % key
+                    f"Got an unexpected keyword argument '{key}' to method upload_file"
                 )
             params[key] = val
         del params['kwargs']
@@ -804,18 +739,12 @@ class StorageApi(object):
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
 
-        header_params = {}
-
         form_params = []
-        local_var_files = {}
-        if 'file' in params:
-            local_var_files['File'] = params['file']
-
+        local_var_files = {'File': params['file']}
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['multipart/form-data'])
@@ -832,7 +761,7 @@ class StorageApi(object):
     #                  Folder Api
     # **************************************************
 
-    def copy_folder(self, src_path, dest_path, **kwargs):  # noqa: E501
+    def copy_folder(self, src_path, dest_path, **kwargs):    # noqa: E501
         """Copy folder
 
         This method makes a synchronous HTTP request by default. To make an
@@ -846,11 +775,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__copy_folder_with_http_info(src_path, dest_path, **kwargs)
-        else:
-            (data) = self.__copy_folder_with_http_info(src_path, dest_path, **kwargs)
-            return data
+        return self.__copy_folder_with_http_info(src_path, dest_path, **kwargs)
 
     def __copy_folder_with_http_info(self, src_path, dest_path, **kwargs):
         """Copy folder
@@ -866,18 +791,21 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['src_path', 'dest_path', 'src_storage_name', 'dest_storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'src_path',
+            'dest_path',
+            'src_storage_name',
+            'dest_storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method copy_folder" % key
+                    f"Got an unexpected keyword argument '{key}' to method copy_folder"
                 )
             params[key] = val
         del params['kwargs']
@@ -896,24 +824,19 @@ class StorageApi(object):
         if 'src_path' in params:
             path_params['srcPath'] = params['src_path']
 
-        query_params = []
-        if 'dest_path' in params:
-            query_params.append(('destPath', params['dest_path']))
+        query_params = [('destPath', params['dest_path'])]
         if 'src_storage_name' in params:
             query_params.append(('srcStorageName', params['src_storage_name']))
         if 'dest_storage_name' in params:
             query_params.append(('destStorageName', params['dest_storage_name']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -938,11 +861,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__create_folder_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__create_folder_with_http_info(path, **kwargs)
-            return data
+        return self.__create_folder_with_http_info(path, **kwargs)
 
     def __create_folder_with_http_info(self, path, **kwargs):
         """Create the folder
@@ -956,18 +875,19 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_folder" % key
+                    f"Got an unexpected keyword argument '{key}' to method create_folder"
                 )
             params[key] = val
         del params['kwargs']
@@ -978,24 +898,18 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -1021,11 +935,7 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__delete_folder_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__delete_folder_with_http_info(path, **kwargs)
-            return data
+        return self.__delete_folder_with_http_info(path, **kwargs)
 
     def __delete_folder_with_http_info(self, path, **kwargs):
         """Delete folder
@@ -1040,18 +950,20 @@ class StorageApi(object):
         :return: None. If the method is called asynchronously, returns the request thread.
         """
 
-        all_params = ['path', 'storage_name', 'recursive']
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
         params = locals()
+        all_params = [
+            'path',
+            'storage_name',
+            'recursive',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_folder" % key
+                    f"Got an unexpected keyword argument '{key}' to method delete_folder"
                 )
             params[key] = val
         del params['kwargs']
@@ -1062,26 +974,20 @@ class StorageApi(object):
 
         collection_formats = {}
 
-        path_params = {}
-        if 'path' in params:
-            path_params['path'] = params['path']
-
+        path_params = {'path': params['path']}
         query_params = []
         if 'storage_name' in params:
             query_params.append(('storageName', params['storage_name']))
         if 'recursive' in params:
             query_params.append(('recursive', params['recursive']))
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])
-
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(
             ['application/json'])
@@ -1106,11 +1012,7 @@ class StorageApi(object):
         :return: FilesList. If the method is called asynchronously, returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.__get_files_list_with_http_info(path, **kwargs)
-        else:
-            (data) = self.__get_files_list_with_http_info(path, **kwargs)
-            return data
+        return self.__get_files_list_with_http_info(path, **kwargs)
 
     def __get_files_list_with_http_info(self, path, **kwargs):
         """Get all files and folders within a folder

@@ -73,13 +73,14 @@ class TestHelper(object):
 
     @classmethod
     def upload_file(cls, file_name):
-        res = cls.storage.upload_file(os.path.join(cls.folder, file_name), os.path.join(cls.test_src, file_name))
-        return res
+        return cls.storage.upload_file(
+            os.path.join(cls.folder, file_name),
+            os.path.join(cls.test_src, file_name),
+        )
 
     @classmethod
     def download_file(cls, path):
-        response = cls.storage.download_file(path)
-        return response
+        return cls.storage.download_file(path)
 
     @classmethod
     def get_file_size(cls, file_name):

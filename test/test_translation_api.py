@@ -67,7 +67,7 @@ class TestTranslationApi(unittest.TestCase):
             self.assertEqual(response.status, "ok")
         except ApiException as ex:
             print("Exception")
-            print("Info: " + str(ex))
+            print(f"Info: {str(ex)}")
             raise ex
 
     def test_document_translation(self):
@@ -85,10 +85,10 @@ class TestTranslationApi(unittest.TestCase):
         frontMatterDict = {0: [["title"], ["frontmatter", "title" ], ["frontmatter", "description"]]}
         shortCodeDict = {0: ["1","3"]}
 
-        src = TestHelper.get_local_folder() + "/" + name
-        dst = TestHelper.get_folder() + "/" + name
-        dst_trs = TestHelper.get_folder() + "/" + savefile
-        src_trs = TestHelper.get_local_folder() + "/" + savefile
+        src = f"{TestHelper.get_local_folder()}/{name}"
+        dst = f"{TestHelper.get_folder()}/{name}"
+        dst_trs = f"{TestHelper.get_folder()}/{savefile}"
+        src_trs = f"{TestHelper.get_local_folder()}/{savefile}"
 
         if self.storageApi.object_exists(dst).to_dict()['exists']:
             print(name, 'already exists')
@@ -106,7 +106,7 @@ class TestTranslationApi(unittest.TestCase):
             self.assertEqual(response.status, "ok")
         except ApiException as ex:
             print("Exception")
-            print("Info: " + str(ex))
+            print(f"Info: {str(ex)}")
             raise ex
 
         result = self.storageApi.download_file(dst_trs)
@@ -133,7 +133,7 @@ class TestTranslationApi(unittest.TestCase):
             self.assertEqual(response.status, "ok")
         except ApiException as ex:
             print("Exception")
-            print("Info: " + str(ex))
+            print(f"Info: {str(ex)}")
             raise ex
 
 if __name__ == '__main__':

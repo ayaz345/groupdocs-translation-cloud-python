@@ -45,17 +45,17 @@ urllib3.contrib.pyopenssl.inject_into_urllib3()
 
 
 class TypeWithDefault(type):
-    def __init__(cls, name, bases, dct):
-        super(TypeWithDefault, cls).__init__(name, bases, dct)
-        cls._default = None
+    def __init__(self, name, bases, dct):
+        super(TypeWithDefault, self).__init__(name, bases, dct)
+        self._default = None
 
-    def __call__(cls, *args, **kwargs):
-        if cls._default is None:
-            cls._default = type.__call__(cls, *args, **kwargs)
-        return copy.copy(cls._default)
+    def __call__(self, *args, **kwargs):
+        if self._default is None:
+            self._default = type.__call__(self, *args, **kwargs)
+        return copy.copy(self._default)
 
-    def set_default(cls, default):
-        cls._default = copy.copy(default)
+    def set_default(self, default):
+        self._default = copy.copy(default)
 
 
 class Configuration(six.with_metaclass(TypeWithDefault, object)):
@@ -76,7 +76,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.default_user_agent = "WebKit"
 
         # Debug file location
-        log_file = os.pardir + '/debug.log'
+        log_file = f'{os.pardir}/debug.log'
 
         # Temp file folder for downloading files
         self.temp_folder_path = gettempdir()
@@ -85,11 +85,12 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.client_secret_prefix = {}
 
         # access token for OAuth2
-        self.access_token = 'Bearer ' + self.get_token()
+        self.access_token = f'Bearer {self.get_token()}'
 
         # Logging Settings
-        self.logger = {}
-        self.logger["package_logger"] = logging.getLogger("groupdocstranslationcloud")
+        self.logger = {
+            "package_logger": logging.getLogger("groupdocstranslationcloud")
+        }
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
         # Log format
         self.logger_format = '%(asctime)s %(levelname)s %(message)s'
@@ -237,11 +238,11 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :param identifier: The identifier of apiKey.
         :return: The token for api key authentication.
         """
-        if (self.client_secret.get(identifier) and
-                self.client_secret_prefix.get(identifier)):
-            return self.client_secret_prefix[identifier] + ' ' + self.client_secret[identifier]
-        elif self.client_secret.get(identifier):
-            return self.client_secret[identifier]
+        if self.client_secret.get(identifier):
+            if self.client_secret_prefix.get(identifier):
+                return f'{self.client_secret_prefix[identifier]} {self.client_secret[identifier]}'
+            else:
+                return self.client_secret[identifier]
 
     def get_basic_auth_token(self):
         """Gets HTTP basic authentication header (string).
@@ -249,7 +250,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The token for basic HTTP authentication.
         """
         return urllib3.util.make_headers(
-            basic_auth=self.username + ':' + self.password
+            basic_auth=f'{self.username}:{self.password}'
         ).get('authorization')
 
     def to_debug_report(self):

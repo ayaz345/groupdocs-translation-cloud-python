@@ -34,9 +34,9 @@ import ast
 
 
 def list_coder(list_to_decode):
-    tmp_list = []
-    for i in list_to_decode:
-        tmp_list.append(str(i) + ': ' + json.dumps(list_to_decode[0]))
+    tmp_list = [
+        f'{str(i)}: {json.dumps(list_to_decode[0])}' for i in list_to_decode
+    ]
     return "{" + ", ".join(tmp_list) + "}"
 
 
@@ -122,6 +122,6 @@ class TranslateDocument:
         request = [{"pair": self.Pair, "format": self.Format, "outformat": self.Outformat, "storage": self.Storage,
                     "name": self.Name, "folder": self.Folder, "savepath": self.Savepath, "savefile": self.Savefile,
                     "masters": self.Masters, "elements": self.Elements, "separator": self.Separator, "optimizepdffontsize": self.Optimizepdffontsize}]
-        codelist = '"shortcodedict": ' + list_coder(self.Codelist)
-        frontlists = '"frontmatterdict": ' + list_coder(self.Frontlists)
+        codelist = f'"shortcodedict": {list_coder(self.Codelist)}'
+        frontlists = f'"frontmatterdict": {list_coder(self.Frontlists)}'
         return ", ".join([json.dumps(request)[:-2], codelist, frontlists]) + "}]"

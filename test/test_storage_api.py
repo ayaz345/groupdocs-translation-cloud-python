@@ -79,7 +79,7 @@ class TestStorageApi(unittest.TestCase):
         self.assertTrue(res['exists'])
         self.assertTrue(res['is_folder'])
 
-        non_exist_file = TestHelper.get_folder() + 'non_exist_file.gif'
+        non_exist_file = f'{TestHelper.get_folder()}non_exist_file.gif'
 
         res = self.api.object_exists(non_exist_file)
         res = res.to_dict()
@@ -108,8 +108,8 @@ class TestStorageApi(unittest.TestCase):
         """
         # Prepare
         file_name = "test_file.docx"
-        src = TestHelper.get_local_folder() + "/" + file_name
-        dst = TestHelper.get_folder() + "/" + file_name
+        src = f"{TestHelper.get_local_folder()}/{file_name}"
+        dst = f"{TestHelper.get_folder()}/{file_name}"
 
         res = self.api.upload_file(dst, src)
         self.assertTrue(len(res.uploaded) == 1)
@@ -140,8 +140,8 @@ class TestStorageApi(unittest.TestCase):
         Upload a specific file
         """
         file_name = "test_file.docx"
-        src = TestHelper.get_local_folder() + "/" + file_name
-        dst = TestHelper.get_folder() + "/" + file_name
+        src = f"{TestHelper.get_local_folder()}/{file_name}"
+        dst = f"{TestHelper.get_folder()}/{file_name}"
 
         result = self.api.upload_file(dst, src)
         self.assertTrue(len(result.uploaded) == 1)
@@ -162,8 +162,8 @@ class TestStorageApi(unittest.TestCase):
 
         # upload file to storage
         file_name = "test_file.docx"
-        src = TestHelper.get_local_folder() + "/" + file_name
-        dst = TestHelper.get_folder() + "/" + file_name
+        src = f"{TestHelper.get_local_folder()}/{file_name}"
+        dst = f"{TestHelper.get_folder()}/{file_name}"
 
         res = self.api.upload_file(dst, src)
         self.assertTrue(len(res.uploaded) == 1)
@@ -185,8 +185,8 @@ class TestStorageApi(unittest.TestCase):
         self.assertTrue(len(res.uploaded) == 1)
         self.assertTrue(len(res.errors) == 0)
 
-        download_file = TestHelper.get_folder() + "/" + file_name
-        save_file = TestHelper.get_local_dest_folder() + "/" + "test_file.docx"
+        download_file = f"{TestHelper.get_folder()}/{file_name}"
+        save_file = f"{TestHelper.get_local_dest_folder()}/test_file.docx"
 
         src = self.api.download_file(download_file)
 
@@ -200,15 +200,15 @@ class TestStorageApi(unittest.TestCase):
         Move a specific file
         """
         file_name = "test_file.docx"
-        src = TestHelper.get_local_folder() + "/" + file_name
-        remote_src = TestHelper.get_folder() + "/" + file_name
+        src = f"{TestHelper.get_local_folder()}/{file_name}"
+        remote_src = f"{TestHelper.get_folder()}/{file_name}"
 
         # Put to the storage
         res = self.api.upload_file(remote_src, src)
         self.assertTrue(len(res.uploaded) == 1)
         self.assertTrue(len(res.errors) == 0)
 
-        remote_dst = TestHelper.get_folder() + "/" + "test_file.docx"
+        remote_dst = f"{TestHelper.get_folder()}/test_file.docx"
 
         # Copy in the storage
         self.api.copy_file(remote_src, remote_dst)
@@ -228,15 +228,15 @@ class TestStorageApi(unittest.TestCase):
         Move a specific file
         """
         file_name = "test_file.docx"
-        src = TestHelper.get_local_folder() + "/" + file_name
-        remote_src = TestHelper.get_folder() + "/" + file_name
+        src = f"{TestHelper.get_local_folder()}/{file_name}"
+        remote_src = f"{TestHelper.get_folder()}/{file_name}"
 
         # Put to the storage
         res = self.api.upload_file(remote_src, src)
         self.assertTrue(len(res.uploaded) == 1)
         self.assertTrue(len(res.errors) == 0)
 
-        remote_dst = TestHelper.get_folder() + "/" + "test_file.docx"
+        remote_dst = f"{TestHelper.get_folder()}/test_file.docx"
 
         # Move in the storage
         self.api.move_file(remote_src, remote_dst)
